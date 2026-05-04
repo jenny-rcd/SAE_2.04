@@ -43,7 +43,7 @@ create table t_s204_patient
 	nom_pat     varchar(50) not null,
 	prenom_pat  varchar(50) not null,
 	adresse_pat varchar(70) not null,
-	date_nais   varchar(12) not null
+	date_nais   date        not null
 );
 create table t_s204_consulte
 (
