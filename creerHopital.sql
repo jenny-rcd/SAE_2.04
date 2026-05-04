@@ -7,49 +7,49 @@ drop table if exists t_s204_consulte    cascade;
 
 create table t_s204_hopital
 (
-	idHop       integer, 
-	nom_hop     varchar(30),
-	adresse_hop varchar(70),
-	tel_hop     varchar(15)
+	idHop       integer         null,
+	nom_hop     varchar(30) not null,
+	adresse_hop varchar(70) not null,
+	tel_hop     varchar(15) not null
 );
 
 create table t_s204_laboratoire
 (
-idLab   integer,
-nom_lab varchar(70),
-idHop   integer
+	idLab   integer     not null,
+	nom_lab varchar(70) not null,
+	idHop   integer     not null
 );
 create table t_s204_service
 (
-idServ   integer,
-nom_serv varchar,
-nb_lits  integer,
-idHop    integer
+	idServ   integer not null,
+	nom_serv varchar not null,
+	nb_lits  integer not null,
+	idHop    integer not null
 );
 create table t_s204_medecin
 (
-idMed    integer,
-nom_med  varchar(35),
-mail_med varchar(60),
-spec     varchar(20),
-fct      varchar(30),
-idLab    integer,
-idServ   integer,
-idHop    integer
+	idMed    integer            not null,
+	nom_med  varchar(35)        not null,
+	mail_med varchar(60) unique not null,
+	spec     varchar(20)        not null,
+	fct      varchar(30)        not null,
+	idLab    integer                null,
+	idServ   integer                null,
+	idHop    integer            not null
 );
 create table t_s204_patient
 (
-idPat       integer    ,
-nom_pat     varchar(50),
-prenom_pat  varchar(50),
-adresse_pat varchar(70),
-date_nais   varchar(12)
+	idPat       integer     not null,
+	nom_pat     varchar(50) not null,
+	prenom_pat  varchar(50) not null,
+	adresse_pat varchar(70) not null,
+	date_nais   varchar(12) not null
 );
 create table t_s204_consulte
 (
-idPat        integer,
-idMed        integer,
-date_consult timestamp
+	idPat        integer   not null,
+	idMed        integer   not null,
+	date_consult timestamp not null
 );
 
 ALTER TABLE t_s204_hopital
@@ -104,3 +104,14 @@ FOREIGN KEY  (idPat)  references t_s204_patient(idPat);
 ALTER TABLE t_s204_consulte
 ADD CONSTRAINT fk_idMed
 FOREIGN KEY  (idMed)  references t_s204_medecin(idMed);
+
+alter table t_s204_medecin
+add constraint ch_fct
+check (fct in ('CONSULTANT','CHERCHEUR','PRATICIEN'));
+
+alter table t_s204_service
+add constraint ch_nb_lits
+check (nb_lits >= 0);
+
+
+
