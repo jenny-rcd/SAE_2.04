@@ -1,3 +1,10 @@
+/**
+  * Création des tables
+  * Date : 4 mai 2026
+  * @author Jenny Richard, Antoine Bertin, Kyerann Cochaux
+  */
+
+
 drop table if exists t_s204_hopital     cascade;
 drop table if exists t_s204_laboratoire cascade;
 drop table if exists t_s204_service     cascade;
