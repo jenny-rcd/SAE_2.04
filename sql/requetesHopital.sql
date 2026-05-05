@@ -116,7 +116,6 @@ WHERE  med.spec = (SELECT med2.spec
                    FROM   t_s204_medecin as med2
                    WHERE  med2.nom_med = 'Firmin' )
 ORDER BY med.nom_med;
--- J'inclus 'Firmin' ?
 
 
 
@@ -230,18 +229,19 @@ HAVING COUNT(cons.idPat) > (SELECT COUNT(cons.idPat)
 
 SELECT nom_pat
 
-FROM t_s204_patient JOIN t_s204_consulte USING(idPat) 
-                    JOIN t_s204_medecin  USING(idMed)
-                    JOIN t_s204_hopital  USING(idHop)
+FROM t_s204_patient JOIN t_s204_consulte      USING(idPat) 
+                    JOIN t_s204_medecin       USING(idMed)
+                    JOIN t_s204_hopital       USING(idHop)
                     JOIN t_s204_service AS s1 USING(idServ)
 
 WHERE nom_hop = 'Jacques Monod'
 
 GROUP BY nom_pat
 
-HAVING count(DISTINCT s1.idServ) = (SELECT COUNT(*)
-                        FROM t_s204_service AS s2 JOIN t_s204_hopital  USING(idHop)
-                        WHERE nom_hop = 'Jacques Monod');
+HAVING COUNT(DISTINCT s1.idServ) = (SELECT COUNT(*)
+                                    FROM t_s204_service AS s2
+                                             JOIN t_s204_hopital  USING(idHop)
+                                    WHERE nom_hop = 'Jacques Monod');
 
 
 
@@ -249,7 +249,25 @@ HAVING count(DISTINCT s1.idServ) = (SELECT COUNT(*)
 
 
 --   9. Les hôpitaux ayant les mêmes laboratoires que l'hôpital Jacques Monod
+SELECT hop.nom_hop
 
+FROM t_s204_hopital AS hop
+         JOIN t_s204_laboratoire AS lab ON hop.idHop = lab.idHop
+
+WHERE lab.nom_lab IN (SELECT labJM.nom_lab
+                      FROM t_s204_laboratoire labJM
+                      JOIN t_s204_hopital hopJM ON labJM.idHop = hopJM.idHop
+                      WHERE hopJM.nom_hop = 'Jacques Monod')
+
+GROUP BY hop.idHop, hop.nom_hop
+
+HAVING COUNT(DISTINCT lab.nom_lab) = (SELECT COUNT(DISTINCT labJM.nom_lab)
+                                      FROM t_s204_laboratoire labJM
+                                      JOIN t_s204_hopital hopJM ON labJM.idHop = hopJM.idHop
+                                      WHERE hopJM.nom_hop = 'Jacques Monod') AND
+       COUNT(DISTINCT lab.nom_lab) = (SELECT COUNT(DISTINCT lab2.nom_lab)
+                                   FROM t_s204_laboratoire lab2
+                                   WHERE lab2.idHop = hop.idHop);
 
 
 
