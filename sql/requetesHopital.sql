@@ -81,18 +81,29 @@ WHERE serv.nom_serv = 'Cardiologie' AND
 
 
 --   3. Les hôpitaux ayant plus de 300 lits.
-SELECT   hop.nom_hop
+SELECT hop.nom_hop
 FROM   t_s204_service as serv
        INNER JOIN 
-       t_s204_hopital as hop
-           ON serv.idHop = hop.idHop
+       t_s204_hopital as hop ON serv.idHop = hop.idHop
 GROUP BY hop.idHop
 HAVING   SUM(serv.nb_lits) > 300;
 
 
 
 --   4. Les patients ayant consulté dans plusieurs hôpitaux.
+SELECT pat.nom_pat,
+       pat.prenom_pat,
+       COUNT(DISTINCT med.idMed)
 
+FROM   t_s204_patient  as pat
+       INNER JOIN
+       t_s204_consulte as con ON pat.idPat = con.idPat
+       INNER JOIN
+       t_s204_medecin  as med ON con.idMed = med.idMed
+
+GROUP BY pat.idPat
+
+HAVING COUNT(DISTINCT med.idMed) > 1;
 
 
 
