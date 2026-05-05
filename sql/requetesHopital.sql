@@ -16,32 +16,61 @@ WHERE  serv.nb_lits > 100;
 
 
 --   2. Noms des hôpitaux qui ont un service de Cardiologie.
-
+SELECT nom_hop
+FROM   t_s204_hopital
+           JOIN t_s204_service USING(idHop)
+WHERE  nom_serv = 'Cardiologie';
 
 
 --   3. Les noms des laboratoires de l’hôpital Jacques Monod.
-
+SELECT nom_lab
+FROM   t_s204_laboratoire
+           JOIN t_s204_hopital USING(idHop)
+WHERE  nom_hop = 'Jacques Monod';
 
 
 --   4. Noms des patients ayant consulté un gynécologue.
-
+SELECT nom_pat
+FROM t_s204_patient
+         JOIN t_s204_consulte USING(idPat)
+         JOIN t_s204_medecin  USING(idMed)
+WHERE spec = 'Gynécologue';
 
 
 --   5. Liste des consultations de médecins (nom du médecin, nom du patient et la date de
 --   consultation).
+SELECT nom_med,
+       nom_pat,
+       date_consult
+
+FROM t_s204_patient
+         JOIN t_s204_consulte USING(idPat)
+         JOIN t_s204_medecin  USING(idMed);
 
 
 
 --   6. Noms des patients ayant consulté un médecin consultant indépendant à l'hôpital Jacques
 --   Monod.
-
+SELECT nom_pat
+FROM t_s204_patient
+         JOIN t_s204_consulte USING(idPat)
+         JOIN t_s204_medecin  USING(idMed)
+         JOIN t_s204_hopital  USING(idHop)
+WHERE fct = 'CONSULTANT' AND nom_hop ='Jacques Monod';
 
 
 --   7. Noms des patients n'ayant consulté qu'à l'hôpital Jacques Monod.
+SELECT nom_pat
+FROM   t_s204_patient
 
+EXCEPT
 
-
-
+SELECT nom_pat
+FROM t_s204_patient
+         JOIN t_s204_consulte USING(idPat)
+         JOIN t_s204_medecin  USING(idMed)
+         JOIN t_s204_hopital  USING(idHop)
+WHERE nom_hop != 'Jacques Monod';
 
 
 
