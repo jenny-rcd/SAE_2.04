@@ -226,7 +226,22 @@ HAVING COUNT(cons.idPat) > (SELECT COUNT(cons.idPat)
 
 
 --   8. Les patients ayant fréquentés tous les services de l'hôpital Jacques Monod.
+/*8. Les patients ayant fréquentés tous les services de l'hôpital Jacques Monod*/
 
+SELECT nom_pat
+
+FROM t_s204_patient JOIN t_s204_consulte USING(idPat) 
+                    JOIN t_s204_medecin  USING(idMed)
+                    JOIN t_s204_hopital  USING(idHop)
+                    JOIN t_s204_service AS s1 USING(idServ)
+
+WHERE nom_hop = 'Jacques Monod'
+
+GROUP BY nom_pat
+
+HAVING count(DISTINCT s1.idServ) = (SELECT COUNT(*)
+                        FROM t_s204_service AS s2 JOIN t_s204_hopital  USING(idHop)
+                        WHERE nom_hop = 'Jacques Monod');
 
 
 
