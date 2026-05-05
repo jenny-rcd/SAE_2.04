@@ -1,6 +1,6 @@
 /**
   * Requettes 
-  * Date : 4 mai 2026
+  * Date : 5 mai 2026
   * @author Jenny Richard, Antoine Bertin, Kyerann Cochaux
   */
 
@@ -81,7 +81,13 @@ WHERE serv.nom_serv = 'Cardiologie' AND
 
 
 --   3. Les hôpitaux ayant plus de 300 lits.
-
+SELECT   hop.nom_hop
+FROM   t_s204_service as serv
+       INNER JOIN 
+       t_s204_hopital as hop
+           ON serv.idHop = hop.idHop
+GROUP BY hop.idHop
+HAVING   SUM(serv.nb_lits) > 300;
 
 
 
@@ -96,10 +102,6 @@ WHERE serv.nom_serv = 'Cardiologie' AND
 
 
 --   6. Liste des noms des médecins et du nombre de patients examinés par médecin. La liste est triée
-
-
-
-
 --   par ordre décroissant du nombre de patients.
 
 
