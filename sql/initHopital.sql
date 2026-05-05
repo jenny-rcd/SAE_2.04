@@ -102,16 +102,16 @@ VALUES
 
 INSERT INTO t_s204_patient (idPat, nom_pat, prenom_pat, adresse_pat, date_nais)
 VALUES
-	( 01, 'Martin' , 'Claire' , '12 Rue des Lilas 76600'      , DATE '1978-04-12' ),
-	( 02, 'Durand' , 'Paul'   , '8 Rue Victor Hugo 76600'     , DATE '1990-09-23' ),
-	( 03, 'Bernard', 'Sophie' , '3 Avenue Pasteur 76290'      , DATE '1982-01-30' ),
-	( 04, 'Petit'  , 'Lucas'  , '14 Rue Voltaire 76600'       , DATE '2017-06-15' ),
-	( 05, 'Moreau' , 'Emma'   , '22 Rue de Paris 76600'       , DATE '1970-11-02' ),
-	( 06, 'Lefevre', 'Hugo'   , '9 Rue Jean Jaurès 76600'     , DATE '1985-07-19' ),
-	( 07, 'Roux'   , 'Nina'   , '5 Rue Carnot 76600'          , DATE '1998-03-05' ),
-	( 08, 'Simon'  , 'Arthur' , '31 Boulevard Maritime 76600' , DATE '1965-12-27' ),
-	( 09, 'Fournier', 'Julie' , '6 Rue Anatole France 76290'  , DATE '1988-08-08' ),
-	( 10, 'Girard' , 'Noé'    , '17 Rue Jules Ferry 76600'    , DATE '2004-05-21' );
+	( 01, 'Martin'  , 'Claire', '12 Rue des Lilas 76600'     , DATE '1978-04-12' ),
+	( 02, 'Durand'  , 'Paul'  , '8 Rue Victor Hugo 76600'    , DATE '1990-09-23' ),
+	( 03, 'Bernard' , 'Sophie', '3 Avenue Pasteur 76290'     , DATE '1982-01-30' ),
+	( 04, 'Petit'   , 'Lucas' , '14 Rue Voltaire 76600'      , DATE '2017-06-15' ),
+	( 05, 'Moreau'  , 'Emma'  , '22 Rue de Paris 76600'      , DATE '1970-11-02' ),
+	( 06, 'Lefevre' , 'Hugo'  , '9 Rue Jean Jaurès 76600'    , DATE '1985-07-19' ),
+	( 07, 'Roux'    , 'Nina'  , '5 Rue Carnot 76600'         , DATE '1998-03-05' ),
+	( 08, 'Simon'   , 'Arthur', '31 Boulevard Maritime 76600', DATE '1965-12-27' ),
+	( 09, 'Fournier', 'Julie' , '6 Rue Anatole France 76290' , DATE '1988-08-08' ),
+	( 10, 'Girard'  , 'Noé'   , '17 Rue Jules Ferry 76600'   , DATE '2004-05-21' );
 
 
 
@@ -138,7 +138,7 @@ VALUES
 	( 10, 13, TIMESTAMP '2026-02-13 12:00:00' ),
 	
 	-- Patient ayant fréquenté tous les services de Jacques Monod
-	( 3, 08, TIMESTAMP '2026-03-10 09:00:00' ),
-	( 3, 18, TIMESTAMP '2026-03-11 10:00:00' ),
-	( 3, 19, TIMESTAMP '2026-03-12 11:00:00' );
+	( 03, 08, TIMESTAMP '2026-03-10 09:00:00' ),
+	( 03, 18, TIMESTAMP '2026-03-11 10:00:00' ),
+	( 03, 19, TIMESTAMP '2026-03-12 11:00:00' );
 
