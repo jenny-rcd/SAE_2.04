@@ -146,11 +146,26 @@ GROUP BY nom_serv;
 --   6. Liste des noms des médecins et du nombre de patients examinés par médecin. La liste est triée
 --   par ordre décroissant du nombre de patients.
 
+SELECT nom_med, COUNT(cons.idPat) AS nbPat
 
+FROM t_s204_medecin JOIN t_s204_consulte AS cons USING(idMed) 
+
+GROUP BY nom_med
+
+ORDER BY nbPat DESC;
 
 
 --   7. Les noms des médecins ayant plus de patients que le médecin Firmin.
+SELECT nom_med, COUNT(cons.idPat) AS nbPat
 
+FROM t_s204_medecin JOIN t_s204_consulte AS cons USING(idMed)
+
+GROUP BY nom_med
+
+HAVING COUNT(cons.idPat) > (SELECT COUNT(cons.idPat)
+                            FROM   t_s204_medecin
+                                       JOIN t_s204_consulte AS cons USING(idMed) 
+                            where  nom_med = 'Firmin');
 
 
 
