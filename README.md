@@ -1,6 +1,8 @@
 # SAE_2.04
 - A. Rétro-conception [FAIT]
-- B. Création de la base de données [PRESQUE FINIS]
+- B. Création de la base de données [FAIT]
 
-Kyerann -> c.2  
-Jenny et Antoine -> c.1
+C. 1 [FAIT]
+C. 2 [EN COURS]
+
+D [EN COURS]
