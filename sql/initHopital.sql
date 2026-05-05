@@ -5,6 +5,7 @@
   */
 
 
+
 INSERT INTO t_s204_hopital (idHop, nom_hop, adresse_hop, tel_hop)
 VALUES
 	( 0, 'Flaubert'         , '55 Bis Rue Gustave Flaubert 76600'    , '02 32 73 32 32' ),
@@ -12,6 +13,7 @@ VALUES
 	( 2, 'Raoul Dufy'       , '4 Rue Lanfant de Metz 76600'          , '02 32 73 39 50' ),
 	( 3, 'Jacques Monod'    , '29 Avenue Pierre Mendès France 76290' , '02 32 73 32 32' ),
 	( 4, 'HPE-Ramsay santé' , '505 Rue Irène Joliot Curie 76600'     , '02 52 68 02 02' );
+
 
 INSERT INTO t_s204_laboratoire (idLab, nom_lab, idHop)
 VALUES
@@ -44,6 +46,7 @@ VALUES
 	( 90, 'Fertilité'           , 2 ),
 	( 91, 'Fertilité'           , 3 ),
 	( 92, 'Fertilité'           , 4 );
+
 
 INSERT INTO t_s204_service (idServ, nom_serv, nb_lits, idHop)
 VALUES
@@ -119,13 +122,13 @@ VALUES
 	( 02, 03, TIMESTAMP '2026-01-11 10:00:00' ),
 	( 03, 10, TIMESTAMP '2026-01-12 14:15:00' ),
 	( 09, 07, TIMESTAMP '2026-02-03 11:00:00' ),
-
+	
 	-- Plusieurs hôpitaux pour tester la requête C.2.4
 	( 01, 09, TIMESTAMP '2026-02-15 08:45:00' ),
 	( 01, 14, TIMESTAMP '2026-03-01 13:30:00' ),
 	( 06, 11, TIMESTAMP '2026-02-20 15:00:00' ),
 	( 06, 18, TIMESTAMP '2026-03-02 09:00:00' ),
-
+	
 	-- Consultations diverses
 	( 04, 04, TIMESTAMP '2026-01-20 16:00:00' ),
 	( 05, 08, TIMESTAMP '2026-01-21 09:00:00' ),
@@ -133,7 +136,7 @@ VALUES
 	( 07, 12, TIMESTAMP '2026-02-05 11:45:00' ),
 	( 08, 16, TIMESTAMP '2026-02-09 17:00:00' ),
 	( 10, 13, TIMESTAMP '2026-02-13 12:00:00' ),
-
+	
 	-- Patient ayant fréquenté tous les services de Jacques Monod
 	( 3, 08, TIMESTAMP '2026-03-10 09:00:00' ),
 	( 3, 18, TIMESTAMP '2026-03-11 10:00:00' ),
