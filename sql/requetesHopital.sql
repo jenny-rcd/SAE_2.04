@@ -137,8 +137,10 @@ HAVING COUNT(DISTINCT med.idMed) > 1;
 
 
 --   5. Le nombre de lits par type de service pour l'ensemble des hôpitaux.
-
-
+SELECT   SUM(nb_lits),
+         nom_serv
+FROM     t_s204_service
+GROUP BY nom_serv;
 
 
 --   6. Liste des noms des médecins et du nombre de patients examinés par médecin. La liste est triée
