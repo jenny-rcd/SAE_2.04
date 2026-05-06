@@ -5,58 +5,58 @@
   */
 
 
-drop table if exists t_s204_hopital     cascade;
-drop table if exists t_s204_laboratoire cascade;
-drop table if exists t_s204_service     cascade;
-drop table if exists t_s204_medecin     cascade;
-drop table if exists t_s204_patient     cascade;
-drop table if exists t_s204_consulte    cascade;
+DROP TABLE IF EXISTS t_s204_hopital     cascade;
+DROP TABLE IF EXISTS t_s204_laboratoire cascade;
+DROP TABLE IF EXISTS t_s204_service     cascade;
+DROP TABLE IF EXISTS t_s204_medecin     cascade;
+DROP TABLE IF EXISTS t_s204_patient     cascade;
+DROP TABLE IF EXISTS t_s204_consulte    cascade;
 
-create table t_s204_hopital
+CREATE TABLE t_s204_hopital
 (
-	idHop       integer         null,
-	nom_hop     varchar(30) not null,
-	adresse_hop varchar(70) not null,
-	tel_hop     varchar(15) not null
+	idHop       INTEGER         NULL,
+	nom_hop     VARCHAR(30) NOT NULL,
+	adresse_hop VARCHAR(70) NOT NULL,
+	tel_hop     VARCHAR(15) NOT NULL
 );
 
-create table t_s204_laboratoire
+CREATE TABLE t_s204_laboratoire
 (
-	idLab   integer     not null,
-	nom_lab varchar(70) not null,
-	idHop   integer     not null
+	idLab   INTEGER     NOT NULL,
+	nom_lab VARCHAR(70) NOT NULL,
+	idHop   INTEGER     NOT NULL
 );
-create table t_s204_service
+CREATE TABLE t_s204_service
 (
-	idServ   integer not null,
-	nom_serv varchar not null,
-	nb_lits  integer not null,
-	idHop    integer not null
+	idServ   INTEGER NOT NULL,
+	nom_serv VARCHAR NOT NULL,
+	nb_lits  INTEGER NOT NULL,
+	idHop    INTEGER NOT NULL
 );
-create table t_s204_medecin
+CREATE TABLE t_s204_medecin
 (
-	idMed    integer            not null,
-	nom_med  varchar(35)        not null,
-	mail_med varchar(60) unique not null,
-	spec     varchar(20)        not null,
-	fct      varchar(30)        not null,
-	idLab    integer                null,
-	idServ   integer                null,
-	idHop    integer            not null
+	idMed    INTEGER            NOT NULL,
+	nom_med  VARCHAR(35)        NOT NULL,
+	mail_med VARCHAR(60) unique NOT NULL,
+	spec     VARCHAR(20)        NOT NULL,
+	fct      VARCHAR(30)        NOT NULL,
+	idLab    INTEGER                NULL,
+	idServ   INTEGER                NULL,
+	idHop    INTEGER            NOT NULL
 );
-create table t_s204_patient
+CREATE TABLE t_s204_patient
 (
-	idPat       integer     not null,
-	nom_pat     varchar(50) not null,
-	prenom_pat  varchar(50) not null,
-	adresse_pat varchar(70) not null,
-	date_nais   date        not null
+	idPat       INTEGER     NOT NULL,
+	nom_pat     VARCHAR(50) NOT NULL,
+	prenom_pat  VARCHAR(50) NOT NULL,
+	adresse_pat VARCHAR(70) NOT NULL,
+	date_nais   date        NOT NULL
 );
-create table t_s204_consulte
+CREATE TABLE t_s204_consulte
 (
-	idPat        integer   not null,
-	idMed        integer   not null,
-	date_consult timestamp not null
+	idPat        INTEGER   NOT NULL,
+	idMed        INTEGER   NOT NULL,
+	date_consult timestamp NOT NULL
 );
 
 ALTER TABLE t_s204_hopital
@@ -86,39 +86,39 @@ PRIMARY KEY (idPat,idMed,date_consult);
 
 ALTER TABLE t_s204_laboratoire
 ADD CONSTRAINT fk_idHop
-FOREIGN KEY  (idHop)  references t_s204_hopital(idHop);
+FOREIGN KEY  (idHop)  REFERENCES t_s204_hopital(idHop);
 
 ALTER TABLE t_s204_service
 ADD CONSTRAINT fk_idHop
-FOREIGN KEY  (idHop)  references t_s204_hopital(idHop);
+FOREIGN KEY  (idHop)  REFERENCES t_s204_hopital(idHop);
 
 ALTER TABLE t_s204_medecin
 ADD CONSTRAINT fk_idLab
-FOREIGN KEY  (idLab)  references t_s204_laboratoire(idLab);
+FOREIGN KEY  (idLab)  REFERENCES t_s204_laboratoire(idLab);
 
 ALTER TABLE t_s204_medecin
 ADD CONSTRAINT fk_idServ
-FOREIGN KEY  (idServ) references t_s204_service(idServ);
+FOREIGN KEY  (idServ) REFERENCES t_s204_service(idServ);
 
 ALTER TABLE t_s204_medecin
 ADD CONSTRAINT fk_idHop
-FOREIGN KEY  (idHop)  references t_s204_hopital(idHop);
+FOREIGN KEY  (idHop)  REFERENCES t_s204_hopital(idHop);
 
 ALTER TABLE t_s204_consulte
 ADD CONSTRAINT fk_idPat
-FOREIGN KEY  (idPat)  references t_s204_patient(idPat);
+FOREIGN KEY  (idPat)  REFERENCES t_s204_patient(idPat);
 
 ALTER TABLE t_s204_consulte
 ADD CONSTRAINT fk_idMed
-FOREIGN KEY  (idMed)  references t_s204_medecin(idMed);
+FOREIGN KEY  (idMed)  REFERENCES t_s204_medecin(idMed);
 
-alter table t_s204_medecin
-add constraint ch_fct
-check (fct in ('CONSULTANT','CHERCHEUR','PRATICIEN'));
+ALTER TABLE t_s204_medecin
+add CONSTRAINT ch_fct
+CHECK (fct IN ('CONSULTANT','CHERCHEUR','PRATICIEN'));
 
-alter table t_s204_service
-add constraint ch_nb_lits
-check (nb_lits >= 0);
+ALTER TABLE t_s204_service
+add CONSTRAINT ch_nb_lits
+CHECK (nb_lits >= 0);
 
 
 
