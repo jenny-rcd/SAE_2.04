@@ -10,37 +10,37 @@
 --   de leur hôpital.
 
 
-drop view if exists medchnom;
-create or replace view medchnom as
+DROP VIEW IF EXISTS medchnom;
+CREATE OR REPLACE VIEW medchnom AS
 
-select med.nom_med,
+SELECT med.nom_med,
        med.mail_med,
        med.spec,
        hop.nom_hop
 
-from t_s204_medecin as med
-     natural join
-     t_s204_hopital as hop;
+FROM t_s204_medecin AS med
+     NATURAL JOIN
+     t_s204_hopital AS hop;
 
 
 -- 2. Utiliser cette vue pour afficher les médecins chercheurs de l'hôpital Jacques Monod.
 
---select * from medchnom where nom_hop='Jacques Monod';
+--SELECT * FROM medchnom where nom_hop='Jacques Monod';
 
 
 
 -- 3. Créer une vue contenant les premières consultations des patients (idPat,
 --   premiere_date).
 
-drop view if exists premconsult;
-create or replace view premconsult as
+DROP VIEW IF EXISTS premconsult;
+CREATE OR REPLACE VIEW premconsult AS
 
-select consult.idPat,
-       min(consult.date_consult) as premiere_date
+SELECT consult.idPat,
+       MIN(consult.date_consult) AS premiere_date
 
-from t_s204_consulte as consult
+FROM t_s204_consulte AS consult
 
-group by consult.idPat;
+GROUP BY consult.idPat;
 
 
 
@@ -51,31 +51,31 @@ group by consult.idPat;
 --   l’identifiant du patient et qui retourne l’âge du patient à sa première consultation.
 
 
-drop function if exists age_patient;
+DROP FUNCTION IF EXISTS age_patient;
 
-create or replace function age_patient(idPatv2 Integer)
-returns Integer as $$
+CREATE OR REPLACE FUNCTION age_patient(idPatv2 INTEGER)
+returns INTEGER AS $$
 
-select (prm.premiere_date::date - pat.date_nais)/365
+SELECT (prm.premiere_date::DATE - pat.date_nais)/365
 
-from t_s204_patient as pat
-inner join premconsult as prm 
-    on pat.idPat = prm.idpat
+FROM t_s204_patient AS pat
+        INNER JOIN premconsult AS prm 
+            ON pat.idPat = prm.idpat
 
-where pat.idPat = idPatv2;
+WHERE pat.idPat = idPatv2;
 
-$$ language sql;
+$$ LANGUAGE SQL;
 
 -- 5. Écrire une requête qui donne la liste des consultations (nom du médecin, nom du
 --   patient) des patients de plus de 40 ans. Utiliser la fonction age_patient.
 
-select distinct med.nom_med,
+SELECT DISTINCT med.nom_med,
                 pat.nom_pat
 
-from t_s204_medecin      as med
-     natural join
-     t_s204_consulte     as consult
-     natural join
-     t_s204_patient      as pat
+FROM t_s204_medecin      AS med
+     NATURAL JOIN
+     t_s204_consulte     AS consult
+     NATURAL JOIN
+     t_s204_patient      AS pat
 
 where age_patient(pat.idPat) > 40;
